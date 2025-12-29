@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUSTAVO | Premium Dining Experience</title>
+    <meta name="description" content="Şehrin en iyi lezzet durağı. Modern mutfak ve eşsiz atmosfer.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. TEMEL AYARLAR (RESET & VARIABLES) --- */
+        :root {
+            --primary-color: #d4af37; /* Altın Sarısı */
+            --bg-color: #121212;      /* Koyu Arkaplan */
+            --card-bg: #1e1e1e;       /* Kart Rengi */
+            --text-light: #f4f4f4;
+            --text-gray: #aaaaaa;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- 2. HEADER & NAVİGASYON --- */
+        header {
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+        }
+
+        .contact-btn {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .contact-btn:hover {
+            background: var(--primary-color);
+            color: #000;
+        }
+
+        /* --- 3. HERO ALANI (GİRİŞ) --- */
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax Efekti */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            color: #ddd;
+        }
+
+        /* --- 4. FİLTRE BUTONLARI --- */
+        .menu-section {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+
+        .section-title .underline {
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 10px auto;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #444;
+            color: var(--text-light);
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: #000;
+            border-color: var(--primary-color);
+        }
+
+        /* --- 5. MENÜ KARTLARI (GRID) --- */
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #333;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .photo-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .menu-item:hover .photo-container img {
+            transform: scale(1.1);
+        }
+
+        .item-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+
+        .item-header h4 {
+            font-size: 1.2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .price {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .item-text {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            font-size: 0.75rem;
+        }
+
+        .badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #333;
+            color: #fff;
+        }
+
+        .badge.chef { background: var(--primary-color); color: #000; }
+        .badge.spicy { background: #d32f2f; }
+
+        /* --- 6. FOOTER --- */
+        footer {
+            background: #000;
+            padding: 2rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 1px solid #333;
+        }
+
+        .social-icons {
+            margin: 1.5rem 0;
+        }
+
+        .social-icons a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover { color: var(--primary-color); }
+
+        .footer-note { font-size: 0.8rem; color: #555; }
+
+        /* Mobil Düzenlemeler */
+        @media screen and (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .filter-container { gap: 10px; }
+            .filter-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">GUSTAVO</div>
+        <button class="contact-btn" onclick="alert('Rezervasyon hattı: 0212 555 55 55')">Rezervasyon Yap</button>
+    </header>
+
+    <section class="hero">
+        <h1>Lezzetin Zirvesi</h1>
+        <p>Mevsimin en taze ürünleriyle hazırlanan, şefimizin özel yorumlarıyla harmanlanmış eşsiz bir gastronomi deneyimi.</p>
+    </section>
+
+    <section class="menu-section">
+        <div class="section-title">
+            <h2>Menümüz</h2>
+            <div class="underline"></div>
+        </div>
+
+        <div class="filter-container">
+            <button class="filter-btn active" data-id="all">Tümü</button>
+            <button class="filter-btn" data-id="baslangic">Başlangıç</button>
+            <button class="filter-btn" data-id="ana-yemek">Ana Yemek</button>
+            <button class="filter-btn" data-id="icecek">İçecekler</button>
+            <button class="filter-btn" data-id="tatli">Tatlılar</button>
+        </div>
+
+        <div class="menu-items">
+            </div>
+    </section>
+
+    <footer>
+        <div class="logo" style="font-size: 1.2rem; margin-bottom: 1rem;">GUSTAVO FINE DINING</div>
+        <p>Bağdat Caddesi No: 123, Kadıköy / İstanbul</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p class="footer-note">© 2024 Gustavo Restaurant. Tüm hakları saklıdır.</p>
+        <p class="footer-note" style="margin-top:5px;">Alerjen uyarısı: Lütfen sipariş vermeden önce personelimize danışınız.</p>
+    </footer>
+
+    <script>
+        // 1. MENÜ VERİSİ (Burası senin veritabanın gibi çalışır)
+        const menu = [
+            {
+                id: 1,
+                title: "Lokanta Usulü Et Sote",
+                category: "ana-yemek",
+                price: "210 TL",
+                img: "etsote.jpg",
+                desc: "Yabani mantarlar, krema ve gerçek trüf yağı ile servis edilir.",
+                badges: ["Şefin SEçimi"]
+            },
+            {
+                id: 2,
+                title: "Dana Bonfile (250g)",
+                category: "ana-yemek",
+                price: "650 TL",
+                img: "danabonfile.jpg",
+                desc: "Kömür ateşinde ızgara, yanında kuşkonmaz ve fırın patates.",
+                badges: ["Şefin Seçimi"]
+            },
+            {
+                id: 3,
+                title: "Levrek Buğulama",
+                category: "ana-yemek",
+                price: "520 TL",
+                img: "levrekbuglama.jfif",
+                desc: "Ege otları, çeri domates ve özel balık sosu ile.",
+                badges: ["Glutensiz"]
+            },
+            {
+                id: 4,
+                title: "Bruschetta Trio",
+                category: "baslangic",
+                price: "210 TL",
+                img: "BruschettaTri.jpg",
+                desc: "Domatesli, mantarlı ve avokadolu üç çeşit kızarmış ekmek.",
+                badges: ["Vegan"]
+            },
+            {
+                id: 5,
+                title: "Ev Yapımı Limonata",
+                category: "icecek",
+                price: "90 TL",
+                img: "evyapımılomonata.webp",
+                desc: "Taze nane ve az şekerli özel tarifimiz.",
+                badges: []
+            },
+            {
+                id: 6,
+                title: "San Sebastian Cheesecake",
+                category: "tatli",
+                price: "240 TL",
+                img: "sansabastian.jfif",
+                desc: "Yanında Belçika çikolatası sosu ile servis edilir.",
+                badges: ["Popüler"]
+            },
+            {
+                id: 7,
+                title: "Atom Karides",
+                category: "baslangic",
+                price: "340 TL",
+                img: "atomkarides.jpg",
+                desc: "Acı tatlı soslu tempura karides.",
+                badges: ["Acı Ve Tatlı"]
+            },
+             {
+                id: 8,
+                title: "Tiramisu",
+                category: "tatli",
+                price: "220 TL",
+                img: "tremisu.jfif",
+                desc: "Orijinal İtalyan tarifi, mascarpone peyniri ile.",
+                badges: ["Popüler"]
+            },
+            {
+                id: 9,
+                title: "İskender",
+                category: "ana-yemek",
+                price: "720 TL",
+                img: "iskender-kebap.jpg",
+                desc: "Taze tırnak pide üzerinde ince kesim et döner, özel domates sosu ve kızgın tereyağı. Yanında tava yoğurdu ve közlenmiş sebzelerle birlikte.",
+                badges: ["Şefin Seçimi"]
+            }
+        ];
+
+        // 2. SEÇİCİLER
+        const sectionCenter = document.querySelector(".menu-items");
+        const filterBtns = document.querySelectorAll(".filter-btn");
+
+        // 3. SAYFA YÜKLENDİĞİNDE ÇALIŞACAK FONKSİYON
+        window.addEventListener("DOMContentLoaded", function () {
+            displayMenuItems(menu);
+        });
+
+        // 4. FİLTRELEME MANTIĞI
+        filterBtns.forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+                // Aktif butonu değiştirme
+                filterBtns.forEach(b => b.classList.remove('active'));
+                e.currentTarget.classList.add('active');
+
+                const category = e.currentTarget.dataset.id;
+                const menuCategory = menu.filter(function (menuItem) {
+                    if (menuItem.category === category) {
+                        return menuItem;
+                    }
+                });
+                
+                if (category === "all") {
+                    displayMenuItems(menu);
+                } else {
+                    displayMenuItems(menuCategory);
+                }
+            });
+        });
+
+        // 5. KARTLARI HTML'E DÖKME FONKSİYONU
+        function displayMenuItems(menuItems) {
+            let displayMenu = menuItems.map(function (item) {
+                
+                // Etiketleri (Badge) oluştur
+                let badgesHtml = item.badges.map(badge => {
+                    let className = 'badge';
+                    if(badge === 'Şefin Seçimi') className += ' chef';
+                    if(badge === 'Acı') className += ' spicy';
+                    return `<span class="${className}">${badge}</span>`;
+                }).join('');
+
+                return `<article class="menu-item">
+                    <div class="photo-container">
+                        <img src=${item.img} alt=${item.title}>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-header">
+                            <h4>${item.title}</h4>
+                            <span class="price">${item.price}</span>
+                        </div>
+                        <p class="item-text">
+                            ${item.desc}
+                        </p>
+                        <div class="badges">
+                            ${badgesHtml}
+                        </div>
+                    </div>
+                </article>`;
+            });
+            displayMenu = displayMenu.join("");
+            sectionCenter.innerHTML = displayMenu;
+        }
+    </script>
+</body>
+</html>
